@@ -1,21 +1,34 @@
 class League {
-    constructor(name, teams,) {
+    constructor(name, teams, config = {}) {
         this.name = name
         this.teams = teams
-        this.rounds = rounds
+
+        this.setup(config)
         this.matches = []
         this.matchSchedule = []
         this.scores = []
     }
+
+    setup(config = {}) {
+        const defaultConfig = { rounds: 1 }
+        this.config = Object.assign(defaultConfig, config)
+    }
 }
 
 class FootbalLeague extends League {
-    constructor(name, teams, rounds = 1, pointsPerWin = 3, pointsPerLose = 0, pointsPerDraw = 1) {
+    constructor(name, teams, config) {
         super(name, teams, rounds)
-        this.pointsPerWin = pointsPerWin
-        this.pointsPerDraw = pointsPerDraw
-        this.pointsPerLose = pointsPerLose
+    }
 
+    setup(config = {}) {
+        const defaultConfig = {
+            rounds: 1,
+            pointsPerWin: 3,
+            pointsPerDraw: 1,
+            pointsPerLose: 0
+        }
+
+        this.config = Object.assign(defaultConfig, config)
     }
 }
 
@@ -28,3 +41,4 @@ class Team {
     }
 
 }
+
