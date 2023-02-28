@@ -39,10 +39,28 @@ export default class League {
         this.fixLastTeamAlwaysAway()
     }
 
+    getNumberOfMatchDays() {
+        if (this.teams.length % 2 === 0) {
+            return this.teams.length - 1
+        } else {
+            return this.teams.length
+        }
+    }
+
+    getTeamNamesForSchedule() {
+        let teamNames = this.teams.map(team => team.name)
+        if (this.teams.length % 2 === 1) {
+            teamNames.push("Descanso")
+        }
+
+        return teamNames
+    }
+
     initSchedule() {
         this.matchDaySchedule = []
-        const numberOfMatchDays = this.teams.length - 1
-        const numberOfMatchesPerMatchDay = this.teams.length / 2
+        let teamNames = this.getTeamNamesForSchedule()
+        const numberOfMatchDays = this.getNumberOfMatchDays()
+        const numberOfMatchesPerMatchDay = teamNames.length / 2
 
         for (let i = 0; i < numberOfMatchDays; i++) {
             const matchesDay = []
@@ -56,12 +74,9 @@ export default class League {
     }
 
     setLocalTeams() {
+        let teamNames = this.getTeamNamesForSchedule()
         let teamIndex = 0
-        let teamIndexMaxValue = this.teams.length - 1 - 1
-
-        let teamNames = this.teams.map(function (value) {
-            return value.name
-        })
+        let teamIndexMaxValue = teamNames.length - 1 - 1
 
         this.matchDaySchedule.forEach(matchesDay => {
             matchesDay.forEach(match => {
@@ -75,8 +90,8 @@ export default class League {
     }
 
     setAwayTeams() {
-        let teamNames = this.teams.map(team => team.name)
-        let teamIndexMaxValue = this.teams.length - 1 - 1
+        let teamNames = this.getTeamNamesForSchedule()
+        let teamIndexMaxValue = teamNames.length - 1 - 1
         let teamIndex = teamIndexMaxValue
 
         this.matchDaySchedule.forEach(matchesDay => {

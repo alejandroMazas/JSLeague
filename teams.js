@@ -2,9 +2,9 @@ const teams = [
     "Duke",
     "Shelly",
     "Caleb",
-    "Lo Wang",
-    "Serious Sam",
-    "DoomGuy"
+    // "Lo Wang",
+    // "Serious Sam",
+    // "DoomGuy"
 ]
 
 Array.prototype.shuffle = function () {
