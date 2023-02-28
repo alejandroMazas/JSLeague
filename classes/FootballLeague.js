@@ -1,5 +1,4 @@
-import League from "./classes/League.js"
-
+import League from "./League.js"
 export default class FootbalLeague extends League {
     constructor(name, teams, config) {
         super(name, teams, config)
@@ -27,3 +26,4 @@ export default class FootbalLeague extends League {
         }
     }
 }
+

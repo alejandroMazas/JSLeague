@@ -31,4 +31,20 @@ export default class League {
         }
     }
 
+    initSchedule() {
+        this.matchDaySchedule = []
+        const numberOfMatchDays = this.teams.length - 1
+        const numberOfMatchesPerMatchDay = this.teams.length / 2
+
+        for (let i = 0; i < numberOfMatchDays; i++) {
+            const matchesDay = []
+            for (let j = 0; j < numberOfMatchesPerMatchDay; j++) {
+                const match = { home: "home", away: "away" }
+                matchesDay.push(match)
+            }
+
+            this.matchDaySchedule.push(matchesDay)
+        }
+    }
+
 }
