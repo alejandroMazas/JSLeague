@@ -33,6 +33,8 @@ export default class League {
 
     createSchedule() {
         this.initSchedule()
+        this.setLocalTeams()
+        this.setAwayTeams()
     }
 
     initSchedule() {
@@ -71,4 +73,24 @@ export default class League {
 
     }
 
+    setAwayTeams() {
+        let teamNames = this.teams.map(team => team.name)
+        let teamIndexMaxValue = this.teams.length - 1 - 1
+        let teamIndex = teamIndexMaxValue
+
+        this.matchDaySchedule.forEach(matchesDay => {
+            matchesDay.forEach((match, indexMatch) => {
+                if (indexMatch === 0) {
+                    match.away = teamNames[teamNames.length - 1]
+                } else {
+                    match.away = teamNames[teamIndex]
+                    teamIndex--
+                }
+
+                if (teamIndex < 0) {
+                    teamIndex = teamIndexMaxValue
+                }
+            })
+        })
+    }
 }
