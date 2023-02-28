@@ -70,7 +70,6 @@ export default class League {
                 }
             })
         })
-
     }
 
     setAwayTeams() {
@@ -93,4 +92,17 @@ export default class League {
             })
         })
     }
+
+    fixLastTeamAlwaysAway() {
+        this.matchDaySchedule.forEach((matchesDay, indexMatchDay) => {
+            matchesDay.forEach((match, matchIndex) => {
+                if (matchIndex === 0 && indexMatchDay % 2 === 1) {
+                    const homeTeam = match.home
+                    match.home = match.away
+                    match.away = match.home
+                }
+            })
+        })
+    }
 }
+
