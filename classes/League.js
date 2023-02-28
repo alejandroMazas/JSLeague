@@ -31,6 +31,10 @@ export default class League {
         }
     }
 
+    createSchedule() {
+        this.initSchedule()
+    }
+
     initSchedule() {
         this.matchDaySchedule = []
         const numberOfMatchDays = this.teams.length - 1
@@ -45,6 +49,26 @@ export default class League {
 
             this.matchDaySchedule.push(matchesDay)
         }
+    }
+
+    setLocalTeams() {
+        let teamIndex = 0
+        let teamIndexMaxValue = this.teams.length - 1 - 1
+
+        let teamNames = this.teams.map(function (value) {
+            return value.name
+        })
+
+        this.matchDaySchedule.forEach(matchesDay => {
+            matchesDay.forEach(match => {
+                match.home = teamNames[teamIndex]
+                teamIndex++
+                if (teamIndex > teamIndexMaxValue) {
+                    teamIndex = 0
+                }
+            })
+        })
+
     }
 
 }
