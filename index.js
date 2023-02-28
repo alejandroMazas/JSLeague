@@ -1,9 +1,4 @@
-const teams = [
-    "Duke",
-    "Shelly",
-    "Caleb",
-    "Lo Wang"
-]
+import teams from "./teams.js"
 
 import FootbalLeague from "./classes/FootballLeague.js"
 

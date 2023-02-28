@@ -4,8 +4,9 @@ export default class League {
         this.setup(config)
         this.setupTeams(teams)
         this.matches = []
-        this.matchSchedule = []
+        this.matchDaySchedule = []
         this.scores = []
+        this.teams.shuffle()
     }
 
     setup(config = {}) {
@@ -35,6 +36,7 @@ export default class League {
         this.initSchedule()
         this.setLocalTeams()
         this.setAwayTeams()
+        this.fixLastTeamAlwaysAway()
     }
 
     initSchedule() {
@@ -99,7 +101,7 @@ export default class League {
                 if (matchIndex === 0 && indexMatchDay % 2 === 1) {
                     const homeTeam = match.home
                     match.home = match.away
-                    match.away = match.home
+                    match.away = homeTeam
                 }
             })
         })
