@@ -39,22 +39,21 @@ export default class League {
         this.fixLastTeamAlwaysAway()
 
         if (this.config.rounds > 1) {
+            const newRound = [...this.matchDaySchedule]
             for (let i = 1; i < this.config.rounds; i++) {
-                const newRound = [...this.matchDaySchedule]
                 let round = []
-                if (i % 2 === 1) {
-                    for (const newMatchesDay of newRound) {
-                        let matchesDay = []
+                for (const newMatchesDay of newRound) {
+                    let matchesDay = []
+                    if (i % 2 === 1) {
                         for (const newMatch of newMatchesDay) {
                             const copyOfMatch = { ...newMatch }
                             const localTeam = copyOfMatch.home
                             copyOfMatch.home = copyOfMatch.away
                             copyOfMatch.away = localTeam
-
-                            matchesDay.push(copyOfMatch)
                         }
-                        round.push(matchesDay)
+                        matchesDay.push(copyOfMatch)
                     }
+                    round.push(matchesDay)
                 }
 
                 round.forEach(newMatchesDay => {
