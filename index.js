@@ -6,4 +6,10 @@ const miLiga = new FootbalLeague("ProfessionalLeague", teams, { rounds: 3 })
 console.log(miLiga.teams)
 
 miLiga.createSchedule()
-console.log(miLiga.matchDaySchedule)
+miLiga.matchDaySchedule.forEach((matchesDay, matchesDayIndex) => {
+    console.log(`Jornada ${matchesDayIndex + 1}`)
+    matchesDay.forEach((match) => {
+        console.log(`${match.home} vs ${match.away}`)
+    })
+    console.log("----------------------------------------")
+})
