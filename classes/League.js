@@ -33,35 +33,35 @@ export default class League {
     }
 
     createSchedule() {
-        this.initSchedule()
-        this.setLocalTeams()
-        this.setAwayTeams()
-        this.fixLastTeamAlwaysAway()
 
-        if (this.config.rounds > 1) {
+        for (let i = 0; i < this.config.rounds; i++) {
+            const round = this.createRound()
 
-            const newRound = [...this.matchDaySchedule]
-            for (let i = 1; i < this.config.rounds; i++) {
-                let round = []
-                for (const newMatchesDay of newRound) {
-                    let matchesDay = []
-                    for (const newMatch of newMatchesDay) {
-                        const copyOfMatch = { ...newMatch }
-                        if (i % 2 === 1) {
-                            const localTeam = copyOfMatch.home
-                            copyOfMatch.home = copyOfMatch.away
-                            copyOfMatch.away = localTeam
-                        }
-                        matchesDay.push(copyOfMatch)
-                    }
-                    round.push(matchesDay)
-                }
+            if (i % 2 === 1) {
+                this.swapTeams(round)
+            }
+            this.matchDaySchedule = this.matchDaySchedule.concat(round)
+        }
+    }
 
-                round.forEach(newMatchesDay => {
-                    this.matchDaySchedule.push(newMatchesDay)
-                })
+
+    swapTeams(round) {
+        for (const matchesDay of round) {
+            for (const match of matchesDay) {
+                const localTeam = match.home
+                match.home = match.away
+                match.away = localTeam
             }
         }
+    }
+
+    createRound() {
+        const round = []
+        this.initSchedule(round)
+        this.setLocalTeams(round)
+        this.setAwayTeams(round)
+        this.fixLastTeamAlwaysAway(round)
+        return round
     }
 
     getNumberOfMatchDays() {
@@ -81,8 +81,8 @@ export default class League {
         return teamNames
     }
 
-    initSchedule() {
-        this.matchDaySchedule = []
+    initSchedule(round) {
+
         let teamNames = this.getTeamNamesForSchedule()
         const numberOfMatchDays = this.getNumberOfMatchDays()
         const numberOfMatchesPerMatchDay = teamNames.length / 2
@@ -94,16 +94,16 @@ export default class League {
                 matchesDay.push(match)
             }
 
-            this.matchDaySchedule.push(matchesDay)
+            round.push(matchesDay)
         }
     }
 
-    setLocalTeams() {
+    setLocalTeams(round) {
         let teamNames = this.getTeamNamesForSchedule()
         let teamIndex = 0
         let teamIndexMaxValue = teamNames.length - 1 - 1
 
-        this.matchDaySchedule.forEach(matchesDay => {
+        round.forEach(matchesDay => {
             matchesDay.forEach(match => {
                 match.home = teamNames[teamIndex]
                 teamIndex++
@@ -114,12 +114,12 @@ export default class League {
         })
     }
 
-    setAwayTeams() {
+    setAwayTeams(round) {
         let teamNames = this.getTeamNamesForSchedule()
         let teamIndexMaxValue = teamNames.length - 1 - 1
         let teamIndex = teamIndexMaxValue
 
-        this.matchDaySchedule.forEach(matchesDay => {
+        round.forEach(matchesDay => {
             matchesDay.forEach((match, indexMatch) => {
                 if (indexMatch === 0) {
                     match.away = teamNames[teamNames.length - 1]
@@ -135,8 +135,8 @@ export default class League {
         })
     }
 
-    fixLastTeamAlwaysAway() {
-        this.matchDaySchedule.forEach((matchesDay, indexMatchDay) => {
+    fixLastTeamAlwaysAway(round) {
+        round.forEach((matchesDay, indexMatchDay) => {
             matchesDay.forEach((match, matchIndex) => {
                 if (matchIndex === 0 && indexMatchDay % 2 === 1) {
                     const homeTeam = match.home
