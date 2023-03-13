@@ -75,7 +75,7 @@ export default class League {
     getTeamNamesForSchedule() {
         let teamNames = this.teams.map(team => team.name)
         if (this.teams.length % 2 === 1) {
-            teamNames.push("Descanso")
+            teamNames.push(null)
         }
 
         return teamNames
