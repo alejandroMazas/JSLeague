@@ -146,6 +146,22 @@ export default class League {
             })
         })
     }
+
+    startSimulation() {
+        for (const matchesDay of this.matchDaySchedule) {
+            for (const match of matchesDay) {
+                if (match.home === null || match.away === null) {
+                    continue
+                }
+                const result = this.play(match)
+                console.log(result)
+            }
+        }
+    }
+
+    play(match) {
+        throw new Error("play method is not implemented in child class")
+    }
 }
 
 

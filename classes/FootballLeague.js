@@ -25,5 +25,20 @@ export default class FootbalLeague extends League {
             goalsAgainst: 0
         }
     }
+
+    play(match) {
+        const homeGoals = this.generateGoals()
+        const awayGoals = this.generateGoals()
+        return {
+            homeTeamName: match.home,
+            homeGoals,
+            awayTeamName: match.awayGoals,
+            awayGoals
+        }
+    }
+
+    generateGoals(max = 10) {
+        return Math.floor(Math.random() * max)
+    }
 }
 
