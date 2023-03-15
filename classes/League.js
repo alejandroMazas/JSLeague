@@ -154,13 +154,17 @@ export default class League {
                     continue
                 }
                 const result = this.play(match)
-                console.log(result)
+                this.updateTeams(result)
             }
         }
     }
 
     play(match) {
         throw new Error("play method is not implemented in child class")
+    }
+
+    updateTeams(result) {
+        throw new Error("updateTeams method is not implemented in child class")
     }
 }
 

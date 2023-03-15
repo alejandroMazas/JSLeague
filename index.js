@@ -3,7 +3,6 @@ import teams from "./teams.js"
 import FootbalLeague from "./classes/FootballLeague.js"
 
 const miLiga = new FootbalLeague("ProfessionalLeague", teams, { rounds: 1 })
-console.log(miLiga.teams)
 
 miLiga.createSchedule()
 miLiga.matchDaySchedule.forEach((matchesDay, matchesDayIndex) => {
@@ -16,3 +15,5 @@ miLiga.matchDaySchedule.forEach((matchesDay, matchesDayIndex) => {
     })
     console.log("----------------------------------------")
 })
+miLiga.startSimulation()
+console.log(miLiga.teams)

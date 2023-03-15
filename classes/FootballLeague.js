@@ -29,16 +29,41 @@ export default class FootbalLeague extends League {
     play(match) {
         const homeGoals = this.generateGoals()
         const awayGoals = this.generateGoals()
+        console.log('aaaa', awayGoals)
         return {
             homeTeamName: match.home,
             homeGoals,
-            awayTeamName: match.awayGoals,
+            awayTeamName: match.away,
             awayGoals
         }
     }
 
     generateGoals(max = 10) {
         return Math.floor(Math.random() * max)
+    }
+
+    updateTeams(result) {
+        console.log(result);
+        const homeTeam = this.teams.find(team => team.name === result.homeTeamName)
+        const awayTeam = this.teams.find(team => team.name === result.awayTeamName)
+
+        homeTeam.goalsAgainst += result.awayGoals
+        awayTeam.goalsFor += result.awayGoals
+
+        if (result.homeGoals > result.awayGoals) {
+            homeTeam.matchesWon++
+            homeTeam.points += this.config.pointsPerWin
+            awayTeam.points += this.pointsPerLose
+        } else if (result.homeGoals < result.awayGoals) {
+            awayTeam.matchesWon++
+            awayTeam.points += this.config.pointsPerWin
+            homeTeam.points += this.pointsPerLose
+        } else {
+            homeTeam.matchesDraw++
+            awayTeam.matchesDraw++
+            homeTeam.points += this.config.pointsPerDraw
+            awayTeam.points += this.config.pointsPerDraw
+        }
     }
 }
 
