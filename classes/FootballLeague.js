@@ -29,7 +29,6 @@ export default class FootbalLeague extends League {
     play(match) {
         const homeGoals = this.generateGoals()
         const awayGoals = this.generateGoals()
-        console.log('aaaa', awayGoals)
         return {
             homeTeamName: match.home,
             homeGoals,
@@ -53,11 +52,11 @@ export default class FootbalLeague extends League {
         if (result.homeGoals > result.awayGoals) {
             homeTeam.matchesWon++
             homeTeam.points += this.config.pointsPerWin
-            awayTeam.points += this.pointsPerLose
+            awayTeam.points += this.config.pointsPerLose
         } else if (result.homeGoals < result.awayGoals) {
             awayTeam.matchesWon++
             awayTeam.points += this.config.pointsPerWin
-            homeTeam.points += this.pointsPerLose
+            homeTeam.points += this.config.pointsPerLose
         } else {
             homeTeam.matchesDraw++
             awayTeam.matchesDraw++

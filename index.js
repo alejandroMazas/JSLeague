@@ -17,3 +17,11 @@ miLiga.matchDaySchedule.forEach((matchesDay, matchesDayIndex) => {
 })
 miLiga.startSimulation()
 console.log(miLiga.teams)
+
+miLiga.summaries.forEach((summary, matchesDayIndex) => {
+    console.log(`Jornada ${matchesDayIndex + 1}`)
+    summary.results.forEach(result => {
+        console.log(`${result.homeTeamName} ${result.homeGoals} - ${result.awayTeamName} ${result.awayGoals}`)
+        console.log("")
+    })
+})

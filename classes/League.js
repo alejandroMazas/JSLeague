@@ -148,14 +148,22 @@ export default class League {
     }
 
     startSimulation() {
+        this.summaries = []
         for (const matchesDay of this.matchDaySchedule) {
+            const matchesDaySummaries = {
+                results: [],
+                standings: undefined
+            }
             for (const match of matchesDay) {
                 if (match.home === null || match.away === null) {
                     continue
                 }
                 const result = this.play(match)
                 this.updateTeams(result)
+
+                matchesDaySummaries.results.push(result)
             }
+            this.summaries.push(matchesDaySummaries)
         }
     }
 
