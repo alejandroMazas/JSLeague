@@ -6,6 +6,7 @@ export default class League {
         this.matches = []
         this.matchDaySchedule = []
         this.scores = []
+        this.summaries = []
         this.teams.shuffle()
     }
 
@@ -148,7 +149,7 @@ export default class League {
     }
 
     startSimulation() {
-        this.summaries = []
+
         for (const matchesDay of this.matchDaySchedule) {
             const matchesDaySummaries = {
                 results: [],
@@ -163,8 +164,14 @@ export default class League {
 
                 matchesDaySummaries.results.push(result)
             }
+            let standings = this.getStandings()
+            matchesDaySummaries.summaries = standings.map(team => Object.assign({}, team))
             this.summaries.push(matchesDaySummaries)
         }
+    }
+
+    getStandings() {
+        throw new Error("this method must be implemmented in child class")
     }
 
     play(match) {

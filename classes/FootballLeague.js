@@ -37,6 +37,25 @@ export default class FootbalLeague extends League {
         }
     }
 
+    getStandings() {
+        const standigs = this.teams.sort((teamA, teamB) => {
+            if (teamA.points > teamB.points) {
+                return -1
+            } else if (teamB.points > teamA.points) {
+                return 1
+            } else {
+                const diffGoalsA = teamA.goalsFor - teamA.goalsAgainst
+                const diffGoalsB = teamB.goalsFor - teamB.goalsAgainst
+                if (diffGoalsA > diffGoalsB) {
+                    return -1
+                } else if (diffGoalsB > diffGoalsA) {
+                    return 1
+                } return 0
+            }
+        })
+        return standigs
+    }
+
     generateGoals(max = 10) {
         return Math.floor(Math.random() * max)
     }

@@ -25,3 +25,4 @@ miLiga.summaries.forEach((summary, matchesDayIndex) => {
         console.log("")
     })
 })
+
