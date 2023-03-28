@@ -16,7 +16,6 @@ miLiga.matchDaySchedule.forEach((matchesDay, matchesDayIndex) => {
     console.log("----------------------------------------")
 })
 miLiga.startSimulation()
-console.log(miLiga.teams)
 
 miLiga.summaries.forEach((summary, matchesDayIndex) => {
     console.log(`Jornada ${matchesDayIndex + 1}`)
@@ -25,4 +24,32 @@ miLiga.summaries.forEach((summary, matchesDayIndex) => {
         console.log("")
     })
 })
+console.table(miLiga.teams)
 
+const totalGoals = miLiga.teams.reduce((acc, current) => {
+    acc += current.goalsFor
+    return acc
+}, 0)
+console.log(`Se han marcado ${totalGoals} goles a favor en total`)
+
+const totalPoints = miLiga.teams.reduce((acc, current) => {
+    acc += current.points
+    return acc
+}, 0)
+console.log(`Se han ganado ${totalGoals} puntos en total`)
+
+
+const metricsObj = {
+    goalsFor: 0,
+    points: 0,
+    diffGoals: 0
+}
+
+const metrics = miLiga.teams.reduce((acc, current) => {
+    metricsObj.goalsFor += current.goalsFor
+    metricsObj.points += current.points
+    metricsObj.diffGoals += (current.goalsFor - current.goalsAgainst)
+    return metricsObj
+}, metricsObj)
+
+console.log(metrics)
